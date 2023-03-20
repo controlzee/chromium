@@ -1198,9 +1198,10 @@ int Performance::GetDroppedEntriesForTypes(PerformanceEntryTypeMask types) {
 DOMHighResTimeStamp Performance::ClampTimeResolution(
     base::TimeDelta time,
     bool cross_origin_isolated_capability) {
-  DEFINE_THREAD_SAFE_STATIC_LOCAL(TimeClamper, clamper, ());
-  return clamper.ClampTimeResolution(time, cross_origin_isolated_capability)
-      .InMillisecondsF();
+  // DEFINE_THREAD_SAFE_STATIC_LOCAL(TimeClamper, clamper, ());
+  // return clamper.ClampTimeResolution(time, cross_origin_isolated_capability)
+  //     .InMillisecondsF();
+  return time.InMillisecondsF();
 }
 
 // static
