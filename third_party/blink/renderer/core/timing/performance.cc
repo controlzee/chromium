@@ -37,6 +37,7 @@
 #include "base/metrics/histogram_macros.h"
 #include "base/time/default_clock.h"
 #include "base/time/default_tick_clock.h"
+#include "base/trace_event/trace_event.h"
 #include "services/metrics/public/cpp/ukm_builders.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 #include "third_party/blink/public/mojom/permissions_policy/document_policy_feature.mojom-blink.h"
@@ -949,6 +950,45 @@ PerformanceMark* Performance::mark(ScriptState* script_state,
 
 void Performance::clearMarks(const AtomicString& mark_name) {
   GetUserTiming().ClearMarks(mark_name);
+}
+
+// Dumb template hack so we can have multiple instantiations of the function, so multiple internal buffers exist and wont be stomped when
+// we have multiple calls before a copy
+template<int NUM>
+static const char* nullTerminateStringForImmediateCopy(const AtomicString& name) {
+  static constexpr size_t bufferSize = 1024;
+  static thread_local char nameBuffer[bufferSize];
+  const size_t size = name.length() < bufferSize ? name.length() : bufferSize-1;  // Leave 1 byte free for the null terminator
+  memcpy(nameBuffer, name.Characters8(), size);
+  nameBuffer[size] = 0;
+  return nameBuffer;
+}
+
+unsigned long long Performance::dbbScopeBegin(const AtomicString& name,
+                                              const AtomicString& file,
+                                              unsigned long line) {
+
+  const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
+  const char* fileNT = nullTerminateStringForImmediateCopy<1>(file);
+
+  TRACE_EVENT_COPY_NESTABLE_ASYNC_BEGIN2(
+      "blink.console", nameNT, this, "file", fileNT, "line", line);
+
+  return 0;
+}
+void Performance::dbbScopeEnd(const AtomicString& name,
+                              unsigned long long scopeData) {
+
+  const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
+
+  TRACE_EVENT_COPY_NESTABLE_ASYNC_END0(
+      "blink.console", nameNT, this);
+}
+
+void Performance::dbbCounter(const AtomicString& name, double value) {
+  const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
+  
+  TRACE_COPY_COUNTER1("blink.console", nameNT, value);
 }
 
 PerformanceMeasure* Performance::measure(ScriptState* script_state,

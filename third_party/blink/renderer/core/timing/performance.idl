@@ -75,4 +75,10 @@ interface Performance : EventTarget {
     [Exposed=Window, SameObject, SaveSameObject] readonly attribute EventCounts eventCounts;
 
     [CallWith=ScriptState, ImplementedAs=toJSONForBinding] object toJSON();
+
+    // DBB
+    unsigned long long dbbScopeBegin(DOMString name, DOMString file, unsigned long line);
+    void dbbScopeEnd(DOMString name, unsigned long long scopeData);
+    void dbbCounter(DOMString name, double value);
+
 };
