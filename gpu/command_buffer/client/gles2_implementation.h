@@ -225,6 +225,9 @@ class GLES2_IMPL_EXPORT GLES2Implementation : public GLES2Interface,
 
   CommandBuffer* command_buffer() const;
 
+  void startFrameCaptureDBB() override;
+  void stopFrameCaptureDBB() override;
+
  private:
   friend class GLES2ImplementationTest;
   friend class VertexArrayObjectManager;

@@ -1046,4 +1046,8 @@ error::Error DoColorMaskiOES(GLuint buf,
                              GLboolean alpha);
 error::Error DoIsEnablediOES(GLenum target, GLuint index, uint32_t* result);
 error::Error DoProvokingVertexANGLE(GLenum provokeMode);
+
+error::Error DoStartFrameCaptureDBB();
+error::Error DoStopFrameCaptureDBB();
+
 #endif  // GPU_COMMAND_BUFFER_SERVICE_GLES2_CMD_DECODER_PASSTHROUGH_DOER_PROTOTYPES_H_

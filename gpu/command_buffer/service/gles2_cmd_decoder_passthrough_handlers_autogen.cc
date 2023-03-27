@@ -4761,5 +4761,25 @@ error::Error GLES2DecoderPassthroughImpl::HandleProvokingVertexANGLE(
   return error::kNoError;
 }
 
+error::Error GLES2DecoderPassthroughImpl::HandleStartFrameCaptureDBB(
+    uint32_t immediate_data_size,
+    const volatile void* cmd_data) {
+  error::Error error = DoStartFrameCaptureDBB();
+  if (error != error::kNoError) {
+    return error;
+  }
+  return error::kNoError;
+}
+
+error::Error GLES2DecoderPassthroughImpl::HandleStopFrameCaptureDBB(
+    uint32_t immediate_data_size,
+    const volatile void* cmd_data) {
+  error::Error error = DoStopFrameCaptureDBB();
+  if (error != error::kNoError) {
+    return error;
+  }
+  return error::kNoError;
+}
+
 }  // namespace gles2
 }  // namespace gpu

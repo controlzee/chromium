@@ -15972,4 +15972,58 @@ static_assert(offsetof(ProvokingVertexANGLE, header) == 0,
 static_assert(offsetof(ProvokingVertexANGLE, provokeMode) == 4,
               "offset of ProvokingVertexANGLE provokeMode should be 4");
 
+struct StartFrameCaptureDBB {
+  typedef StartFrameCaptureDBB ValueType;
+  static const CommandId kCmdId = kStartFrameCaptureDBB;
+  static const cmd::ArgFlags kArgFlags = cmd::kFixed;
+  static const uint8_t cmd_flags = CMD_FLAG_SET_TRACE_LEVEL(3);
+
+  static uint32_t ComputeSize() {
+    return static_cast<uint32_t>(sizeof(ValueType));  // NOLINT
+  }
+
+  void SetHeader() { header.SetCmd<ValueType>(); }
+
+  void Init() { SetHeader(); }
+
+  void* Set(void* cmd) {
+    static_cast<ValueType*>(cmd)->Init();
+    return NextCmdAddress<ValueType>(cmd);
+  }
+
+  gpu::CommandHeader header;
+};
+
+static_assert(sizeof(StartFrameCaptureDBB) == 4,
+              "size of StartFrameCaptureDBB should be 4");
+static_assert(offsetof(StartFrameCaptureDBB, header) == 0,
+              "offset of StartFrameCaptureDBB header should be 0");
+
+struct StopFrameCaptureDBB {
+  typedef StopFrameCaptureDBB ValueType;
+  static const CommandId kCmdId = kStopFrameCaptureDBB;
+  static const cmd::ArgFlags kArgFlags = cmd::kFixed;
+  static const uint8_t cmd_flags = CMD_FLAG_SET_TRACE_LEVEL(3);
+
+  static uint32_t ComputeSize() {
+    return static_cast<uint32_t>(sizeof(ValueType));  // NOLINT
+  }
+
+  void SetHeader() { header.SetCmd<ValueType>(); }
+
+  void Init() { SetHeader(); }
+
+  void* Set(void* cmd) {
+    static_cast<ValueType*>(cmd)->Init();
+    return NextCmdAddress<ValueType>(cmd);
+  }
+
+  gpu::CommandHeader header;
+};
+
+static_assert(sizeof(StopFrameCaptureDBB) == 4,
+              "size of StopFrameCaptureDBB should be 4");
+static_assert(offsetof(StopFrameCaptureDBB, header) == 0,
+              "offset of StopFrameCaptureDBB header should be 0");
+
 #endif  // GPU_COMMAND_BUFFER_COMMON_GLES2_CMD_FORMAT_AUTOGEN_H_

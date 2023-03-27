@@ -3242,4 +3242,20 @@ void ProvokingVertexANGLE(GLenum provokeMode) {
   }
 }
 
+void StartFrameCaptureDBB() {
+  gles2::cmds::StartFrameCaptureDBB* c =
+      GetCmdSpace<gles2::cmds::StartFrameCaptureDBB>();
+  if (c) {
+    c->Init();
+  }
+}
+
+void StopFrameCaptureDBB() {
+  gles2::cmds::StopFrameCaptureDBB* c =
+      GetCmdSpace<gles2::cmds::StopFrameCaptureDBB>();
+  if (c) {
+    c->Init();
+  }
+}
+
 #endif  // GPU_COMMAND_BUFFER_CLIENT_GLES2_CMD_HELPER_AUTOGEN_H_

@@ -391,3 +391,7 @@ GL_APICALL GLboolean    GL_APIENTRY glIsEnablediOES (GLenum target, GLuint index
 
 // Extension ANGLE_provoking_vertex
 GL_APICALL void         GL_APIENTRY glProvokingVertexANGLE (GLenum provokeMode);
+
+// Extension DBB
+GL_APICALL void         GL_APIENTRY glStartFrameCaptureDBB (void);
+GL_APICALL void         GL_APIENTRY glStopFrameCaptureDBB (void);

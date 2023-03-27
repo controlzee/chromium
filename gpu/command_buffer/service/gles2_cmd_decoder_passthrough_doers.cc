@@ -14,6 +14,7 @@
 #include "base/metrics/histogram_macros.h"
 #include "base/strings/string_number_conversions.h"
 #include "build/build_config.h"
+#include "dbb_frame_capture.h"
 #include "gpu/command_buffer/common/discardable_handle.h"
 #include "gpu/command_buffer/service/decoder_client.h"
 #include "gpu/command_buffer/service/gpu_fence_manager.h"
@@ -4967,6 +4968,23 @@ error::Error GLES2DecoderPassthroughImpl::DoDisableiOES(GLenum target,
 error::Error GLES2DecoderPassthroughImpl::DoProvokingVertexANGLE(
     GLenum provokeMode) {
   api()->glProvokingVertexANGLEFn(provokeMode);
+  return error::kNoError;
+}
+
+error::Error GLES2DecoderPassthroughImpl::DoStartFrameCaptureDBB() {
+  const char* error = ::dbb::startFrameCapture();
+  if(error) {
+    InsertError(GL_INVALID_OPERATION, error);
+  }
+
+  return error::kNoError;
+}
+error::Error GLES2DecoderPassthroughImpl::DoStopFrameCaptureDBB() {
+  const char* error = ::dbb::stopFrameCapture();
+  if(error) {
+    InsertError(GL_INVALID_OPERATION, error);
+  }
+  
   return error::kNoError;
 }
 

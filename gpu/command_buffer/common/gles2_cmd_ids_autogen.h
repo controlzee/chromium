@@ -335,7 +335,9 @@
   OP(BlendFuncSeparateiOES)                                    /* 576 */ \
   OP(ColorMaskiOES)                                            /* 577 */ \
   OP(IsEnablediOES)                                            /* 578 */ \
-  OP(ProvokingVertexANGLE)                                     /* 579 */
+  OP(ProvokingVertexANGLE)                                     /* 579 */ \
+  OP(StartFrameCaptureDBB)                                     /* 580 */ \
+  OP(StopFrameCaptureDBB)                                      /* 581 */
 
 enum CommandId {
   kOneBeforeStartPoint =

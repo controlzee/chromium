@@ -851,6 +851,21 @@ void WebGLRenderingContextBase::
   DCHECK_GE(number_of_user_allocated_multisampled_renderbuffers_, 0);
 }
 
+
+void WebGLRenderingContextBase::startFrameCaptureDBB() {
+  if (isContextLost())
+    return;
+  ContextGL()->startFrameCaptureDBB();
+  return;
+}
+
+void WebGLRenderingContextBase::stopFrameCaptureDBB() {
+  if (isContextLost())
+    return;
+
+  ContextGL()->stopFrameCaptureDBB();
+}
+
 namespace {
 
 // Exposed by GL_ANGLE_depth_texture

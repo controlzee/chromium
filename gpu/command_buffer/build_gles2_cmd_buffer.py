@@ -4034,8 +4034,17 @@ _FUNCTION_INFO = {
     'decoder_func': 'DoEndSharedImageAccessDirectCHROMIUM',
     'extension': 'CHROMIUM_shared_image',
     'unit_test': False,
+  },
+  'StartFrameCaptureDBB': {
+    'decoder_func': 'DoStartFrameCaptureDBB',
+    'unit_test': False,
+    'internal': True,
+  },
+  'StopFrameCaptureDBB': {
+    'decoder_func': 'DoStopFrameCaptureDBB',
+    'unit_test': False,
+    'internal': True,
   }
-
 }
 
 

@@ -5447,6 +5447,20 @@ error::Error GLES2DecoderImpl::HandleProvokingVertexANGLE(
   return error::kNoError;
 }
 
+error::Error GLES2DecoderImpl::HandleStartFrameCaptureDBB(
+    uint32_t immediate_data_size,
+    const volatile void* cmd_data) {
+  DoStartFrameCaptureDBB();
+  return error::kNoError;
+}
+
+error::Error GLES2DecoderImpl::HandleStopFrameCaptureDBB(
+    uint32_t immediate_data_size,
+    const volatile void* cmd_data) {
+  DoStopFrameCaptureDBB();
+  return error::kNoError;
+}
+
 bool GLES2DecoderImpl::SetCapabilityState(GLenum cap, bool enabled) {
   switch (cap) {
     case GL_BLEND:

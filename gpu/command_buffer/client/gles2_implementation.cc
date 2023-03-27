@@ -7265,6 +7265,14 @@ CommandBuffer* GLES2Implementation::command_buffer() const {
   return helper_->command_buffer();
 }
 
+void GLES2Implementation::startFrameCaptureDBB() {
+  helper_->StartFrameCaptureDBB();
+}
+
+void GLES2Implementation::stopFrameCaptureDBB() {
+  helper_->StopFrameCaptureDBB();
+}
+
 void GLES2Implementation::SetActiveURLCHROMIUM(const char* url) {
   DCHECK(url);
   GPU_CLIENT_SINGLE_THREAD_CHECK();

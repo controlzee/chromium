@@ -47,6 +47,9 @@ class GLES2Interface : public InterfaceBase {
   // kDefault if "unknown", or kLowPower or kHighPerformance if known.
   virtual GLboolean DidGpuSwitch(gl::GpuPreference* active_gpu);
 
+  virtual void startFrameCaptureDBB() {}
+  virtual void stopFrameCaptureDBB() {}
+
   // Include the auto-generated part of this class. We split this because
   // it means we can easily edit the non-auto generated parts right here in
   // this file instead of having to edit some template or the code generator.

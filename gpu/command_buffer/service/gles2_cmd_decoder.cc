@@ -39,6 +39,7 @@
 #include "base/strings/stringprintf.h"
 #include "base/trace_event/trace_event.h"
 #include "build/build_config.h"
+#include "dbb_frame_capture.h"
 #include "gpu/command_buffer/common/debug_marker_manager.h"
 #include "gpu/command_buffer/common/gles2_cmd_copy_texture_chromium_utils.h"
 #include "gpu/command_buffer/common/gles2_cmd_format.h"
@@ -1226,6 +1227,9 @@ class GLES2DecoderImpl : public GLES2Decoder,
       const volatile GLbyte* mailbox);
   void DoBeginSharedImageAccessDirectCHROMIUM(GLuint client_id, GLenum mode);
   void DoEndSharedImageAccessDirectCHROMIUM(GLuint client_id);
+
+  void DoStartFrameCaptureDBB();
+  void DoStopFrameCaptureDBB();
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC)
   void AttachImageToTextureWithDecoderBinding(uint32_t client_texture_id,
@@ -18508,6 +18512,20 @@ void GLES2DecoderImpl::DoCreateAndTexStorage2DSharedImageINTERNAL(
 
   texture_ref =
       texture_manager()->ConsumeSharedImage(client_id, std::move(shared_image));
+}
+
+void GLES2DecoderImpl::DoStartFrameCaptureDBB() {
+  const char* error = ::dbb::startFrameCapture();
+  if(error) {
+    LOCAL_SET_GL_ERROR(GL_INVALID_OPERATION, "StartFrameCaptureDBB", error);
+  }
+}
+
+void GLES2DecoderImpl::DoStopFrameCaptureDBB() {
+  const char* error = ::dbb::stopFrameCapture();
+  if(error) {
+    LOCAL_SET_GL_ERROR(GL_INVALID_OPERATION, "StopFrameCaptureDBB", error);
+  }
 }
 
 void GLES2DecoderImpl::DoBeginSharedImageAccessDirectCHROMIUM(GLuint client_id,
