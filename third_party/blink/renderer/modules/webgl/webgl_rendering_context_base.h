@@ -685,6 +685,7 @@ class MODULES_EXPORT WebGLRenderingContextBase : public CanvasRenderingContext,
   static constexpr size_t kMaximumSupportedArrayBufferSize =
       ::partition_alloc::internal::MaxDirectMapped();
 
+  bool isFrameCaptureEnabledDBB();
   void startFrameCaptureDBB();
   void stopFrameCaptureDBB();
 

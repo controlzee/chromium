@@ -738,6 +738,7 @@ interface mixin WebGLRenderingContextBase {
     // WebXR Device API support
     [RuntimeEnabled=WebXR, SecureContext, CallWith=ScriptState, RaisesException, HighEntropy, MeasureAs=WebGLRenderingContextMakeXRCompatible] Promise<void> makeXRCompatible();
 
+    boolean isFrameCaptureEnabledDBB();
     void startFrameCaptureDBB();
     void stopFrameCaptureDBB();
 };

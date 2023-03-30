@@ -27,6 +27,7 @@
 
 #include <memory>
 #include <utility>
+#include <dlfcn.h>
 
 #include "base/containers/contains.h"
 #include "base/feature_list.h"
@@ -851,6 +852,9 @@ void WebGLRenderingContextBase::
   DCHECK_GE(number_of_user_allocated_multisampled_renderbuffers_, 0);
 }
 
+bool WebGLRenderingContextBase::isFrameCaptureEnabledDBB() {
+  return dlopen("librenderdoc.dylib", RTLD_NOW | RTLD_NOLOAD);
+}
 
 void WebGLRenderingContextBase::startFrameCaptureDBB() {
   if (isContextLost())
