@@ -244,7 +244,7 @@ class CORE_EXPORT Performance : public EventTargetWithInlineData {
   unsigned long long dbbScopeBegin(const AtomicString& name,
                                    const AtomicString& file,
                                    unsigned long line);
-  void dbbScopeEnd(const AtomicString& name, unsigned long long scopeData);
+  void dbbScopeEnd(const AtomicString& name);
   void dbbCounter(const AtomicString& name, double value);
 
   void AddBackForwardCacheRestoration(base::TimeTicks start_time,

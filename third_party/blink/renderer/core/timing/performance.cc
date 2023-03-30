@@ -976,8 +976,7 @@ unsigned long long Performance::dbbScopeBegin(const AtomicString& name,
 
   return 0;
 }
-void Performance::dbbScopeEnd(const AtomicString& name,
-                              unsigned long long scopeData) {
+void Performance::dbbScopeEnd(const AtomicString& name) {
 
   const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
 

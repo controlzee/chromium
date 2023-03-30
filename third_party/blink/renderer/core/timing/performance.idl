@@ -78,7 +78,7 @@ interface Performance : EventTarget {
 
     // DBB
     unsigned long long dbbScopeBegin(DOMString name, DOMString file, unsigned long line);
-    void dbbScopeEnd(DOMString name, unsigned long long scopeData);
+    void dbbScopeEnd(DOMString name);
     void dbbCounter(DOMString name, double value);
 
 };
