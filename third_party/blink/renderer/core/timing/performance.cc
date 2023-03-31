@@ -37,7 +37,7 @@
 #include "base/metrics/histogram_macros.h"
 #include "base/time/default_clock.h"
 #include "base/time/default_tick_clock.h"
-#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "services/metrics/public/cpp/ukm_builders.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 #include "third_party/blink/public/mojom/permissions_policy/document_policy_feature.mojom-blink.h"
@@ -970,23 +970,19 @@ unsigned long long Performance::dbbScopeBegin(const AtomicString& name,
 
   const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
   const char* fileNT = nullTerminateStringForImmediateCopy<1>(file);
-
-  TRACE_EVENT_COPY_NESTABLE_ASYNC_BEGIN2(
-      "blink.console", nameNT, this, "file", fileNT, "line", line);
+  
+  TRACE_EVENT_BEGIN("blink.console", nullptr, "file", fileNT, "line", line, [nameNT](perfetto::EventContext ctx) {
+    ctx.event()->set_name(nameNT);
+  });
 
   return 0;
 }
-void Performance::dbbScopeEnd(const AtomicString& name) {
-
-  const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
-
-  TRACE_EVENT_COPY_NESTABLE_ASYNC_END0(
-      "blink.console", nameNT, this);
+void Performance::dbbScopeEnd() {
+  TRACE_EVENT_END("blink.console");
 }
 
 void Performance::dbbCounter(const AtomicString& name, double value) {
   const char* nameNT = nullTerminateStringForImmediateCopy<0>(name);
-  
   TRACE_COPY_COUNTER1("blink.console", nameNT, value);
 }
 
